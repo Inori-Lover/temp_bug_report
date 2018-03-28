@@ -24,9 +24,15 @@ module.exports = {
     less: {
       compress: prod
     },
-    /*sass: {
-      outputStyle: 'compressed'
-    },*/
+    stylus: {
+      compress: true
+    },
+    typescript: {
+      'compilerOptions': {
+        'module': 'ES6',
+        'target': 'es6'
+      }
+    },
     babel: {
       sourceMap: true,
       presets: [

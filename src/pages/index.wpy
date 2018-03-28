@@ -1,26 +1,44 @@
 <style lang="less">
-  .userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .userinfo-avatar {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 50%;
-  }
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
 
-  .userinfo-nickname {
-    color: #aaa;
-  }
+.userinfo-nickname {
+  color: #aaa;
+}
 </style>
 <template>
   <view class="container">
+    <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <button @tap="changeIndicatorDots"> indicator-dots </button>
+    <button @tap="changeAutoplay"> autoplay </button>
+    <slider @change="intervalChange" show-value min="500" max="2000"/> interval
+    <slider @change="durationChange" show-value min="1000" max="10000"/> duration
+
     <view class="userinfo" @tap="handleViewTap">
       <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
       <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
     </view>
+
+      <navigator url="../index/index" class="weui-cell weui-cell_access">
+          <view class="weui-cell__bd">test</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
 
     <panel>
       <view class="title" slot="title">测试数据绑定</view>
@@ -69,12 +87,6 @@
     </panel>
 
     <panel>
-      <view class="DialogDIY">
-        <dialog />
-      </view>
-    </panel>
-
-    <panel>
       <view class="title" slot="title">测试列表</view>
       <list></list>
     </panel>
@@ -84,172 +96,216 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import Panel from '@/components/panel' // alias example
-  import Counter from 'counter' // alias example
-  import List from '../components/list' // aliasFields example
-  import DialogDIY from '../components/dialog' // aliasFields example
-  import moduleA from 'module-a' // aliasFields ignore module example
-  import Group from '../components/group'
-  import Toast from 'wepy-com-toast'
-  import testMixin from '../mixins/test'
+import wepy from 'wepy'
+import Panel from '@/components/panel' // alias example
+import Counter from 'counter' // alias example
+import List from '../components/list' // aliasFields example
+import DialogDIY from '../components/dialog' // aliasFields example
+import moduleA from 'module-a' // aliasFields ignore module example
+import Group from '../components/group'
+import Toast from 'wepy-com-toast'
+import testMixin from '../mixins/test'
 
-  console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
+console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
 
-  export default class Index extends wepy.page {
-    config = {
-      navigationBarTitleText: '测试商城首页'
-    }
-    components = {
-      panel: Panel,
-      counter1: Counter,
-      counter2: Counter,
-      list: List,
-      group: Group,
-      dialog: DialogDIY,
-      toast: Toast
-    }
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: '测试商城首页'
+  }
+  components = {
+    panel: Panel,
+    counter1: Counter,
+    counter2: Counter,
+    list: List,
+    group: Group,
+    dialog: DialogDIY,
+    toast: Toast
+  }
 
-    mixins = [testMixin]
+  mixins = [testMixin]
 
-    data = {
-      mynum: 20,
-      userInfo: {
-        nickName: '加载中...'
+  data = {
+    mynum: 20,
+    userInfo: {
+      nickName: '加载中...'
+    },
+    normalTitle: '原始标题',
+    setTimeoutTitle: '标题三秒后会被修改',
+    count: 0,
+    netrst: '',
+    groupList: [
+      {
+        id: 1,
+        name: '点击改变',
+        list: [
+          {
+            childid: '1.1',
+            childname: '子项，点我改变'
+          },
+          {
+            childid: '1.2',
+            childname: '子项，点我改变'
+          },
+          {
+            childid: '1.3',
+            childname: '子项，点我改变'
+          }
+        ]
       },
-      normalTitle: '原始标题',
-      setTimeoutTitle: '标题三秒后会被修改',
-      count: 0,
-      netrst: '',
-      groupList: [
-        {
-          id: 1,
-          name: '点击改变',
-          list: [
-            {
-              childid: '1.1',
-              childname: '子项，点我改变'
-            }, {
-              childid: '1.2',
-              childname: '子项，点我改变'
-            }, {
-              childid: '1.3',
-              childname: '子项，点我改变'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: '点击改变',
-          list: [
-            {
-              childid: '2.1',
-              childname: '子项，点我改变'
-            }, {
-              childid: '2.2',
-              childname: '子项，点我改变'
-            }, {
-              childid: '2.3',
-              childname: '子项，点我改变'
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: '点击改变',
-          list: [
-            {
-              childid: '3.1',
-              childname: '子项，点我改变'
-            }
-          ]
-        }
-      ]
-    }
-
-    computed = {
-      now () {
-        return +new Date()
+      {
+        id: 2,
+        name: '点击改变',
+        list: [
+          {
+            childid: '2.1',
+            childname: '子项，点我改变'
+          },
+          {
+            childid: '2.2',
+            childname: '子项，点我改变'
+          },
+          {
+            childid: '2.3',
+            childname: '子项，点我改变'
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: '点击改变',
+        list: [
+          {
+            childid: '3.1',
+            childname: '子项，点我改变'
+          }
+        ]
       }
-    }
+    ],
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    indicatorDots: false,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000
+  }
 
-    methods = {
-      plus () {
-        this.mynum++
-      },
-      toast () {
-        // let promise = this.$invoke('toast', 'show', {
-        //   title: '自定义标题',
-        //   img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-        // })
-        let promise = wepy.chooseImage({
-          count: 2, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'] // 可以指定来源是相册还是相机，默认二者都有
-        })
-
-        promise.then((res) => {
-          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          console.log(res.length)
-        })
-      },
-      tap () {
-        console.log('do noting from ' + this.$name)
-      },
-      communicate () {
-        console.log(this.$name + ' tap')
-
-        this.$invoke('counter2', 'minus', 45, 6)
-        this.$invoke('counter1', 'plus', 45, 6)
-
-        this.$broadcast('index-broadcast', 1, 3, 4)
-      },
-      request () {
-        let self = this
-        let i = 10
-        let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
-        while (i--) {
-          wepy.request({
-            url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
-            success: function (d) {
-              self.netrst += d.data + '.'
-              self.$apply()
-            }
-          })
-        }
-      },
-      counterEmit (...args) {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
-      }
-    }
-
-    events = {
-      'index-emit': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
-      }
-    }
-
-    onLoad() {
-      let self = this
-      this.$parent.getUserInfo(function (userInfo) {
-        if (userInfo) {
-          self.userInfo = userInfo
-        }
-        self.normalTitle = '标题已被修改'
-
-        self.setTimeoutTitle = '标题三秒后会被修改'
-        new Promise((resolve, reject) => {
-          setTimeout(() => {
-            self.setTimeoutTitle = '到三秒了'
-            self.$apply()
-            resolve()
-          }, 3000)
-        }).then(_ => {
-          self.$apply()
-        })
-      })
+  computed = {
+    now() {
+      return +new Date()
     }
   }
+
+  methods = {
+    plus() {
+      this.mynum++
+    },
+    toast() {
+      // let promise = this.$invoke('toast', 'show', {
+      //   title: '自定义标题',
+      //   img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
+      // })
+      let promise = wepy.chooseImage({
+        count: 2, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'] // 可以指定来源是相册还是相机，默认二者都有
+      })
+
+      promise.then(res => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        console.log(res.length)
+      })
+    },
+    tap() {
+      console.log('do noting from ' + this.$name)
+    },
+    communicate() {
+      console.log(this.$name + ' tap')
+
+      this.$invoke('counter2', 'minus', 45, 6)
+      this.$invoke('counter1', 'plus', 45, 6)
+
+      this.$broadcast('index-broadcast', 1, 3, 4)
+    },
+    request() {
+      let self = this
+      let i = 10
+      let map = [
+        'MA==',
+        'MQo=',
+        'Mg==',
+        'Mw==',
+        'NA==',
+        'NQ==',
+        'Ng==',
+        'Nw==',
+        'OA==',
+        'OQ=='
+      ]
+      while (i--) {
+        wepy.request({
+          url:
+            'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' +
+            map[i] +
+            '&i=' +
+            i,
+          success: function(d) {
+            self.netrst += d.data + '.'
+            self.$apply()
+          }
+        })
+      }
+    },
+    counterEmit(...args) {
+      let $event = args[args.length - 1]
+      console.log(
+        `${this.$name} receive ${$event.name} from ${$event.source.$name}`
+      )
+    },
+    changeIndicatorDots(e) {
+      this.indicatorDots = !this.data.indicatorDots
+    },
+    changeAutoplay(e) {
+      this.autoplay = !this.data.autoplay
+    },
+    intervalChange(e) {
+      this.interval = e.detail.value
+    },
+    durationChange(e) {
+      this.duration = e.detail.value
+    }
+  }
+
+  events = {
+    'index-emit': (...args) => {
+      let $event = args[args.length - 1]
+      console.log(
+        `${this.$name} receive ${$event.name} from ${$event.source.$name}`
+      )
+    }
+  }
+
+  onLoad() {
+    let self = this
+    this.$parent.getUserInfo(function(userInfo) {
+      if (userInfo) {
+        self.userInfo = userInfo
+      }
+      self.normalTitle = '标题已被修改'
+
+      self.setTimeoutTitle = '标题三秒后会被修改'
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          self.setTimeoutTitle = '到三秒了'
+          self.$apply()
+          resolve()
+        }, 3000)
+      }).then(_ => {
+        self.$apply()
+      })
+    })
+  }
+}
 </script>
