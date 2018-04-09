@@ -1,121 +1,122 @@
 <style lang="stylus">
 
-main-color = #E64340
+  main-color = #E64340
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-// 搜索键
-.weui-search-bar__cancel-btn {
-  color main-color
-}
-// 搜索下拉
-.searchbar-result {
-  position: absolute;
-  margin-top: 0;
-  // searchbar 的默认高度是48px 减去边框1px
-  top: 47px;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
-// 轮播图
-swiper-item {
-  text-align: center;
-}
-
-// 菜单图标
-.fixed_image {
-  // 一个屏幕宽度为750rpx或者等长20rem
-  // css原生var及calc
-  // 括号为stylus预处理
-  // 一行4个图标
-  --linePerItem: (20 / 4)rem;
-  width: calc(var(--linePerItem) + 1px);
-  flex-basis: calc(var(--linePerItem) + 1px);
-  margin-right: -1px;
-  flex-grow: 0;
-  flex-shrink: 0;
-  // border: 1px solid gray
-  padding: 0.5rem;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.fixed_img {
-  width: 75rpx;
-  height: 75rpx;
-  border-radius: 50%;
-}
-
-.fixed_img_addon {
-  width: calc(var(--linePerItem) - 1rem);
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: keep-all;
-  white-space: pre;
-}
-
-.fixed_image:last-child {
-  width: var(--linePerItem);
-  flex-basis: var(--linePerItem);
-}
-
-del {
-  text-decoration: line-through;
-}
-
-// 双列推荐
-.weui-flex-two {
-  flex-wrap wrap
-  justify-content space-between
-  .weui-grid__icon {
-    width 240rpx
-    height 240rpx
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .weui-flex__item {
-    --marginTop 5rpx
-    margin-top var(--marginTop)
-    flex-basis calc(50% - var(--marginTop) )
-    height 400rpx
-    flex-shrink 0
-    flex-grow 0
-    padding-top 1rem
-    padding-left 1rem
-    padding-right @padding-left
-    box-sizing border-box
-    border 1px solid #eee
-    position relative
-    .shop_price {
-      color main-color
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+  // 搜索键
+  .weui-search-bar__cancel-btn {
+    color main-color
+  }
+  // 搜索下拉
+  .searchbar-result {
+    position: absolute;
+    margin-top: 0;
+    // searchbar 的默认高度是48px 减去边框1px
+    top: 47px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  // 轮播图
+  swiper-item {
+    text-align: center;
+  }
+
+  // 菜单图标
+  .fixed_image {
+    // 一个屏幕宽度为750rpx或者等长20rem
+    // css原生var及calc
+    // 括号为stylus预处理
+    // 一行4个图标
+    --linePerItem: (20 / 4)rem;
+    width: calc(var(--linePerItem) + 1px);
+    flex-basis: calc(var(--linePerItem) + 1px);
+    margin-right: -1px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    // border: 1px solid gray
+    padding: 0.5rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .fixed_img {
+    width: 75rpx;
+    height: 75rpx;
+    border-radius: 50%;
+  }
+
+  .fixed_img_addon {
+    width: calc(var(--linePerItem) - 1rem);
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    white-space: pre;
+  }
+
+  .fixed_image:last-child {
+    width: var(--linePerItem);
+    flex-basis: var(--linePerItem);
+  }
+
+  del {
+    text-decoration: line-through;
+  }
+
+  // 双列推荐
+  .weui-flex-two {
+    flex-wrap wrap
+    justify-content space-between
+    .weui-grid__icon {
+      width 240rpx
+      height 240rpx
     }
-    del {
-      color gray
-      font-size smaller
-    }
-    .weui-badge {
-      background-color main-color
-      top: @padding-top - .4rem
-      left: @padding-left + .4rem
+    .weui-flex__item {
+      --marginTop 5rpx
+      margin-top var(--marginTop)
+      flex-basis calc(50% - var(--marginTop) )
+      height 400rpx
+      flex-shrink 0
+      flex-grow 0
+      padding-top 1rem
+      padding-left 1rem
+      padding-right @padding-left
+      box-sizing border-box
+      border 1px solid #eee
+      position relative
+      .shop_price {
+        color main-color
+      }
+      del {
+        color gray
+        font-size smaller
+      }
+      .weui-badge {
+        background-color main-color
+        top: @padding-top - .4rem
+        left: @padding-left + .4rem
+      }
     }
   }
-}
 </style>
+
 <template>
   <view class="container">
     <view class="page">
@@ -201,8 +202,8 @@ del {
 </template>
 
 <script>
-import wepy from 'wepy';
-import Panel from '@/components/panel'; // alias example
+import wepy from 'wepy'
+import Panel from '@/components/panel' // alias example
 
 export default class Index extends wepy.page {
   config = {
@@ -248,34 +249,34 @@ export default class Index extends wepy.page {
         tag: '新品抢购'
       }
     ]
-  };
+  }
 
   methods = {
     showInput() {
-      this.inputShowed = true;
+      this.inputShowed = true
     },
     hideInput() {
-      this.inputVal = '';
-      this.inputShowed = false;
+      this.inputVal = ''
+      this.inputShowed = false
     },
     clearInput() {
-      this.inputVal = '';
+      this.inputVal = ''
     },
     inputTyping(e) {
-      this.inputVal = e.detail.value;
+      this.inputVal = e.detail.value
     },
     showtabbar(e) {
-      console.log(1);
-      wx.setTabBarBadge({
+      console.log(1)
+      wepy.setTabBarBadge({
         index: 0,
         text: '1'
-      });
+      })
     }
-  };
+  }
 
   onLoad() {
-    let self = this;
-    console.log(self);
+    let self = this
+    console.log(self)
   }
 }
 </script>

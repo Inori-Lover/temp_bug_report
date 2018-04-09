@@ -8,11 +8,12 @@
   export default class extends wepy.app {
     config = {
       pages: [
+        // 排列第一的会显示
+        'pages/shop_car',
         'pages/index',
         'pages/typelist',
         'pages/order_detail',
         'pages/person_index',
-        'pages/shop_car',
         'pages/shop_detail',
 
         'index/index',
@@ -25,6 +26,7 @@
         navigationBarTextStyle: 'black'
       },
       tabBar: {
+        // list长度为2~5
         list: [{
           pagePath: 'pages/index',
           text: '首页',
