@@ -9,6 +9,11 @@
     config = {
       pages: [
         'pages/index',
+        'pages/typelist',
+        'pages/order_detail',
+        'pages/person_index',
+        'pages/shop_car',
+        'pages/shop_detail',
 
         'index/index',
         'message/index'
@@ -26,7 +31,7 @@
           iconPath: 'res/home.png',
           selectedIconPath: 'res/home2.png'
         }, {
-          pagePath: 'index/index',
+          pagePath: 'pages/typelist',
           text: '分类',
           iconPath: 'res/book.png',
           selectedIconPath: 'res/book2.png'
@@ -36,12 +41,12 @@
           iconPath: 'res/shopcity.png',
           selectedIconPath: 'res/shopcity2.png'
         }, {
-          pagePath: 'index/index',
+          pagePath: 'pages/shop_car',
           text: '购物车',
           iconPath: 'res/shopcar.png',
           selectedIconPath: 'res/shopcar2.png'
         }, {
-          pagePath: 'index/index',
+          pagePath: 'pages/person_index',
           text: '会员中心',
           iconPath: 'res/person.png',
           selectedIconPath: 'res/person2.png'
