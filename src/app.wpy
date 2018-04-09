@@ -1,4 +1,4 @@
-<style src="../node_modules/weui-wxss/dist/style/weui.wxss"></style>
+<style src='../node_modules/weui-wxss/dist/style/weui.wxss'></style>
 
 
 <script>
@@ -18,6 +18,34 @@
         navigationBarBackgroundColor: '#fff',
         navigationBarTitleText: 'WeChat',
         navigationBarTextStyle: 'black'
+      },
+      tabBar: {
+        list: [{
+          pagePath: 'pages/index',
+          text: '首页',
+          iconPath: 'res/home.png',
+          selectedIconPath: 'res/home2.png'
+        }, {
+          pagePath: 'index/index',
+          text: '分类',
+          iconPath: 'res/book.png',
+          selectedIconPath: 'res/book2.png'
+        }, {
+          pagePath: 'index/index',
+          text: '分享',
+          iconPath: 'res/shopcity.png',
+          selectedIconPath: 'res/shopcity2.png'
+        }, {
+          pagePath: 'index/index',
+          text: '购物车',
+          iconPath: 'res/shopcar.png',
+          selectedIconPath: 'res/shopcar2.png'
+        }, {
+          pagePath: 'index/index',
+          text: '会员中心',
+          iconPath: 'res/person.png',
+          selectedIconPath: 'res/person2.png'
+        }]
       }
     }
 

@@ -1,68 +1,120 @@
 <style lang="stylus">
-  .userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .userinfo-avatar {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 50%;
-  }
+main-color = #E64340
 
-  .userinfo-nickname {
-    color: #aaa;
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+// 搜索键
+.weui-search-bar__cancel-btn {
+  color main-color
+}
+// 搜索下拉
+.searchbar-result {
+  position: absolute;
+  margin-top: 0;
+  // searchbar 的默认高度是48px 减去边框1px
+  top: 47px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+// 轮播图
+swiper-item {
+  text-align: center;
+}
+
+// 菜单图标
+.fixed_image {
+  // 一个屏幕宽度为750rpx或者等长20rem
+  // css原生var及calc
+  // 括号为stylus预处理
+  // 一行4个图标
+  --linePerItem: (20 / 4)rem;
+  width: calc(var(--linePerItem) + 1px);
+  flex-basis: calc(var(--linePerItem) + 1px);
+  margin-right: -1px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  // border: 1px solid gray
+  padding: 0.5rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.fixed_img {
+  width: 75rpx;
+  height: 75rpx;
+  border-radius: 50%;
+}
+
+.fixed_img_addon {
+  width: calc(var(--linePerItem) - 1rem);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  white-space: pre;
+}
+
+.fixed_image:last-child {
+  width: var(--linePerItem);
+  flex-basis: var(--linePerItem);
+}
+
+del {
+  text-decoration: line-through;
+}
+
+// 双列推荐
+.weui-flex-two {
+  flex-wrap wrap
+  justify-content space-between
+  .weui-grid__icon {
+    width 240rpx
+    height 240rpx
   }
-  // 搜索下拉
-  .searchbar-result {
-    position: absolute
-    margin-top: 0
-    // searchbar 的默认高度是48px 减去边框1px
-    top: 47px
-    left: 0
-    right: 0
-    z-index: 10
-  }
-  // 轮播图
-  swiper-item {
-    text-align: center
-  }
-  // 菜单图标
-  .fixed_image {
-    // 一个屏幕宽度为750rpx或者等长20rem
-    // css原生var及calc
-    // 括号为stylus预处理
-    // 一行4个图标
-    --linePerItem: (20 / 4)rem
-    width: calc(var(--linePerItem) + 1px)
-    flex-basis: calc(var(--linePerItem) + 1px)
-    margin-right -1px
-    flex-grow: 0
-    flex-shrink: 0
-    border: 1px solid gray
-    padding: .5rem
-    box-sizing: border-box
-    text-align: center
-    .fixed_img {
-      width: 75rpx
-      height: 75rpx
-      border-radius: 50%
+  .weui-flex__item {
+    --marginTop 5rpx
+    margin-top var(--marginTop)
+    flex-basis calc(50% - var(--marginTop) )
+    height 400rpx
+    flex-shrink 0
+    flex-grow 0
+    padding-top 1rem
+    padding-left 1rem
+    padding-right @padding-left
+    box-sizing border-box
+    border 1px solid #eee
+    position relative
+    .shop_price {
+      color main-color
     }
-    .fixed_img_addon {
-      width: calc(var(--linePerItem) - 1rem)
-      margin-left auto
-      margin-right auto
-      overflow hidden
-      text-overflow ellipsis
-      word-break keep-all
-      white-space pre
+    del {
+      color gray
+      font-size smaller
+    }
+    .weui-badge {
+      background-color main-color
+      top: @padding-top - .4rem
+      left: @padding-left + .4rem
     }
   }
-  .fixed_image:last-child {
-    width: var(--linePerItem)
-    flex-basis: var(--linePerItem)
-  }
+}
 </style>
 <template>
   <view class="container">
@@ -117,26 +169,48 @@
               <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
               <view class="fixed_img_addon">weui3</view>
             </view>
-            <view class="weui-flex__item fixed_image">
+            <view class="weui-flex__item fixed_image" @tap="showtabbar">
               <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
               <view class="fixed_img_addon">weui4444444444444444</view>
             </view>
+        </view>
+        <view style='height:10rpx;'></view>
+        <!-- 九宫格推荐 -->
+        <!-- <view class="weui-grids">
+            <block wx:for-items="{{grids}}" wx:key="{{index}}">
+                <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+                  <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
+                  <view class="weui-grid__label">Grid</view>
+                  <view class="weui-grid__label">￥ 27.000<del>￥ 127.000</del></view>
+                </navigator>
+            </block>
+        </view> -->
+        <!-- 双列推荐 -->
+        <view class="weui-flex weui-flex-two">
+          <block wx:for-items="{{grids}}" wx:key="{{index}}">
+                <navigator url="" class="weui-flex__item" hover-class="weui-grid_active">
+                  <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
+                  <view class="weui-badge" style="position: absolute;">{{grids[index].tag}}</view>
+                  <view class="weui-grid__label">{{grids[index].title}}</view>
+                  <view class="weui-grid__label shop_price">￥{{grids[index].price}}<del>￥{{grids[index].current_price}}</del></view>
+                </navigator>
+            </block>
         </view>
     </view>
   </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import Panel from '@/components/panel' // alias example
+import wepy from 'wepy';
+import Panel from '@/components/panel'; // alias example
 
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: '测试商城首页'
-  }
+  };
   components = {
     panel: Panel
-  }
+  };
 
   data = {
     // swiper
@@ -151,28 +225,57 @@ export default class Index extends wepy.page {
     duration: 1000,
     // 搜索栏
     inputShowed: false,
-    inputVal: ''
-  }
+    inputVal: '',
+
+    // 九宫格推荐
+    grids: [
+      {
+        title: '玻尿酸1',
+        price: '201.00',
+        current_price: '100.00',
+        tag: '新品抢购'
+      },
+      {
+        title: '玻尿酸2',
+        price: '202.00',
+        current_price: '100.00',
+        tag: '新品抢购'
+      },
+      {
+        title: '玻尿酸3',
+        price: '203.00',
+        current_price: '100.00',
+        tag: '新品抢购'
+      }
+    ]
+  };
 
   methods = {
     showInput() {
-      this.inputShowed = true
+      this.inputShowed = true;
     },
     hideInput() {
-      this.inputVal = ''
-      this.inputShowed = false
+      this.inputVal = '';
+      this.inputShowed = false;
     },
     clearInput() {
-      this.inputVal = ''
+      this.inputVal = '';
     },
     inputTyping(e) {
-      this.inputVal = e.detail.value
+      this.inputVal = e.detail.value;
+    },
+    showtabbar(e) {
+      console.log(1);
+      wx.setTabBarBadge({
+        index: 0,
+        text: '1'
+      });
     }
-  }
+  };
 
   onLoad() {
-    let self = this
-    console.log(self)
+    let self = this;
+    console.log(self);
   }
 }
 </script>
