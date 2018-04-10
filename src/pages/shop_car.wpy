@@ -25,9 +25,7 @@ export default class Car extends wepy.page {
   }
   data = {
     backUri: 'pages/index',
-    itemList: [
-      1, 2, 3
-    ]
+    itemList: [1, 2, 3]
   }
 }
 </script>

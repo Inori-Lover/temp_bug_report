@@ -1,16 +1,23 @@
 <style lang="stylus" scoped>
   // max 750rpx || 20rem
+  .flex_line {
+    padding-left .5rem
+    padding-right @padding-left
+    border-bottom 1px solid #eee
+  }
   .back_btn {
-    width 1.4rem
+    width 1rem
     height @width
     margin .1rem
+    vertical-align -15%
   }
 </style>
 
-<template lang="html">
+<template>
   <view class="flex_line">
-    <image class="back_btn" mode="aspectFit" src="../res/back.png" @tap='handleBackBtnClick'></image>
-    <span>共两件产品</span>
+    <span><image class="back_btn" mode="aspectFit" src="../res/back.png" @tap='handleBackBtnClick'></image></span>
+    <span>　共两件产品</span>
+    <span style="float: right;">编辑</span>
   </view>
 </template>
 <script>
@@ -19,14 +26,23 @@
   export default class BackBar extends wepy.component {
     props = {
       // 只允许在tabbar内的链接
-      backUri: String,
-      itemList: []
+      backUri: {
+        type: String,
+        default: 'pages/index'
+      },
+      itemList: {
+        type: Object,
+        default: 'pages/index',
+        twoWay: true
+      }
     }
 
     methods = {
       handleBackBtnClick () {
-        console.log(this['backUri'])
-        console.log(this['itemList'])
+        console.group(`显示页面数据`)
+        console.log(this.backUri)
+        console.log(this.itemList.length)
+        console.groupEnd()
         if (this.backUri.length > 0) return
         wepy.switchTab({
           url: '/pages/index',
