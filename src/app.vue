@@ -1,6 +1,5 @@
 <style src='../node_modules/weui-wxss/dist/style/weui.wxss'></style>
 
-
 <script>
   import wepy from 'wepy'
   import 'wepy-async-function'
@@ -9,9 +8,9 @@
     config = {
       pages: [
         // 排列第一的会显示
+        'pages/typelist',
         'pages/shop_car',
         'pages/index',
-        'pages/typelist',
         'pages/order_detail',
         'pages/person_index',
         'pages/shop_detail',
@@ -65,8 +64,37 @@
       this.use('requestfix')
     }
 
-    onLaunch() {
+    // 小程序生命周期
+    /**
+     * @desc 首次打开小程序
+     */
+    onLaunch () {
       this.testAsync()
+      console.log('onLaunch')
+    }
+    /**
+     * @desc 初始化完成或后台进入前台
+     */
+    onShow () {
+      console.log('onShow')
+    }
+    /**
+     * @desc 前台进入后台
+     */
+    onHide () {
+      console.log('onHide')
+    }
+    /**
+     * @desc 程序监听到未处理的Error
+     */
+    onError () {
+      console.log('onError')
+    }
+    /**
+     * @desc 404处理
+     */
+    onPageNotFound () {
+      console.log('onPageNotFound')
     }
 
     sleep (s) {

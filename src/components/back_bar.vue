@@ -16,8 +16,10 @@
 <template>
   <view class="flex_line">
     <span><image class="back_btn" mode="aspectFit" src="../res/back.png" @tap='handleBackBtnClick'></image></span>
-    <span>　共两件产品</span>
-    <span style="float: right;">编辑</span>
+    <span>　共{{itemList.length}}件产品</span>
+    <span style="float: right;" @tap='toggleEditing' wx:if="{{editing}}">完成</span>
+    <span style="float: right;" @tap='toggleEditing' wx:if="{{editing}}">删除</span>
+    <span style="float: right;" @tap='toggleEditing' wx:else>编辑</span>
   </view>
 </template>
 <script>
@@ -30,19 +32,30 @@
         type: String,
         default: 'pages/index'
       },
+      editing: {
+        type: Boolean,
+        default: true,
+        twoWay: true
+      },
+      debug: {
+        type: Boolean,
+        default: false
+      },
       itemList: {
-        type: Object,
-        default: 'pages/index',
+        type: Array,
+        default: [],
         twoWay: true
       }
     }
 
     methods = {
       handleBackBtnClick () {
-        console.group(`显示页面数据`)
-        console.log(this.backUri)
-        console.log(this.itemList.length)
-        console.groupEnd()
+        if (this.debug) {
+          console.group(`显示页面数据`)
+          console.log(this.backUri)
+          console.log(this.itemList.length)
+          console.groupEnd()
+        }
         if (this.backUri.length > 0) return
         wepy.switchTab({
           url: '/pages/index',
@@ -50,6 +63,10 @@
           fail: () => {},
           complete: () => {}
         })
+      },
+      toggleEditing () {
+        if (this.debug) console.log(`正在由${this.editing}变为${!this.editing}`)
+        this.editing = !this.editing
       }
     }
 
