@@ -8,13 +8,13 @@
   },
   "scripts": {
     "dev": "wepy build --watch",
-    "build": "cross-env NODE_ENV=production wepy build --no-cache",
+    "build": "node clean.js && cross-env NODE_ENV=production wepy build --no-cache",
     "dev:web": "wepy build --output web",
     "clean": "find ./dist -maxdepth 1 -not -name 'project.config.json' -not -name 'dist' | xargs rm -rf",
+    "_clean": "node clean.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "wepy": {
-  },
+  "wepy": {},
   "author": "'inori_lover' <'337938188@qq.com'>",
   "license": "MIT",
   "dependencies": {
@@ -32,6 +32,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
+    "del": "^3.0.0",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^4.0.1",
