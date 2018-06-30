@@ -149,11 +149,11 @@
         </view>
 
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-          <block wx:for="{{imgUrls}}">
+          <repeat for="{{imgUrls}}" item="item" index="index" key="index">
             <swiper-item>
               <image src="{{item}}" class="slide-image" width="355" height="150"/>
             </swiper-item>
-          </block>
+          </repeat>
         </swiper>
 
         <!-- 导航 -->
@@ -188,14 +188,14 @@
         </view> -->
         <!-- 双列推荐 -->
         <view class="weui-flex weui-flex-two">
-          <block wx:for-items="{{grids}}" wx:key="{{index}}">
-                <navigator url="" class="weui-flex__item" hover-class="weui-grid_active">
-                  <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
-                  <view class="weui-badge" style="position: absolute;">{{grids[index].tag}}</view>
-                  <view class="weui-grid__label">{{grids[index].title}}</view>
-                  <view class="weui-grid__label shop_price">￥{{grids[index].price}}<del>￥{{grids[index].current_price}}</del></view>
-                </navigator>
-            </block>
+          <repeat for="{{grids}}" key="index" index="index" item="item">
+              <navigator url="" class="weui-flex__item" hover-class="weui-grid_active">
+                <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
+                <view class="weui-badge" style="position: absolute;">{{grids[index].tag}}</view>
+                <view class="weui-grid__label">{{grids[index].title}}</view>
+                <view class="weui-grid__label shop_price">￥{{grids[index].price}}<del>￥{{grids[index].current_price}}</del></view>
+              </navigator>
+          </repeat>
         </view>
     </view>
   </view>
@@ -204,14 +204,19 @@
 <script>
 import wepy from 'wepy'
 import Panel from '@/components/panel' // alias example
+import LoginMix from '@/mixins/loginTest'
 
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: '测试商城首页'
-  };
+  }
   components = {
     panel: Panel
-  };
+  }
+
+  mixins = [
+    LoginMix
+  ]
 
   data = {
     // swiper

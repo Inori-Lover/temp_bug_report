@@ -9,6 +9,7 @@
       pages: [
         // 排列第一的会显示
         'pages/index',
+        'pages/login',
         'pages/typelist',
         'pages/shop_car',
         'pages/order_detail',
@@ -68,13 +69,14 @@
      */
     onLaunch (options) {
       // this.testAsync()
-      console.log('onLaunch')
+      this.getUserInfo()
+      // console.log('onLaunch')
     }
     /**
      * @desc 初始化完成或后台进入前台
      */
     onShow (options) {
-      console.log('onShow')
+      // console.log('onShow')
     }
     /**
      * @desc 前台进入后台
@@ -101,6 +103,9 @@
         success (res) {
           that.globalData.userInfo = res.userInfo
           cb && cb(res.userInfo)
+        },
+        fail (err) {
+          console.log(err)
         }
       })
     }
