@@ -119,84 +119,81 @@
 
 <template>
   <view class="container">
-    <view class="page">
-        <view class="page__bd">
-          <!-- 顶部搜索 -->
-            <view class="weui-search-bar">
-                <view class="weui-search-bar__form">
-                    <view class="weui-search-bar__box">
-                        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-                        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" @tap="clearInput">
-                            <icon type="clear" size="14"></icon>
-                        </view>
-                    </view>
-                    <label class="weui-search-bar__label" hidden="{{inputShowed}}" @tap="showInput">
-                        <icon class="weui-icon-search" type="search" size="14"></icon>
-                        <view class="weui-search-bar__text">搜索</view>
-                    </label>
+    <!-- 顶部搜索 -->
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" @tap="clearInput">
+                    <icon type="clear" size="14"></icon>
                 </view>
-                <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
             </view>
-            <!-- 顶部 -->
-            <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-                <navigator url="#" class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view>正在加载</view>
-                    </view>
-                </navigator>
-            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" @tap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">搜索</view>
+            </label>
         </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
+    </view>
 
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-          <repeat for="{{imgUrls}}" item="item" index="index" key="index">
-            <swiper-item>
-              <image src="{{item}}" class="slide-image" width="355" height="150"/>
-            </swiper-item>
-          </repeat>
-        </swiper>
+    <!-- 顶部 -->
+    <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+        <navigator url="#" class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>正在加载</view>
+            </view>
+        </navigator>
+    </view>
 
-        <!-- 导航 -->
-          <view class="weui-flex">
-            <view class="weui-flex__item fixed_image">
-              <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
-              <view class="fixed_img_addon">weui1</view>
-            </view>
-            <view class="weui-flex__item fixed_image">
-              <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
-              <view class="fixed_img_addon">weui2</view>
-            </view>
-            <view class="weui-flex__item fixed_image">
-              <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
-              <view class="fixed_img_addon">weui3</view>
-            </view>
-            <view class="weui-flex__item fixed_image" @tap="showtabbar">
-              <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
-              <view class="fixed_img_addon">weui4444444444444444</view>
-            </view>
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <repeat for="{{imgUrls}}" item="item" index="index" key="index">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+      </repeat>
+    </swiper>
+
+    <!-- 导航 -->
+    <view class="weui-flex">
+        <view class="weui-flex__item fixed_image">
+          <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
+          <view class="fixed_img_addon">weui1</view>
         </view>
-        <view style='height:10rpx;'></view>
-        <!-- 九宫格推荐 -->
-        <!-- <view class="weui-grids">
-            <block wx:for-items="{{grids}}" wx:key="{{index}}">
-                <navigator url="" class="weui-grid" hover-class="weui-grid_active">
-                  <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
-                  <view class="weui-grid__label">Grid</view>
-                  <view class="weui-grid__label">￥ 27.000<del>￥ 127.000</del></view>
-                </navigator>
-            </block>
-        </view> -->
-        <!-- 双列推荐 -->
-        <view class="weui-flex weui-flex-two">
-          <repeat for="{{grids}}" key="index" index="index" item="item">
-              <navigator url="" class="weui-flex__item" hover-class="weui-grid_active">
-                <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
-                <view class="weui-badge" style="position: absolute;">{{grids[index].tag}}</view>
-                <view class="weui-grid__label">{{grids[index].title}}</view>
-                <view class="weui-grid__label shop_price">￥{{grids[index].price}}<del>￥{{grids[index].current_price}}</del></view>
-              </navigator>
-          </repeat>
+        <view class="weui-flex__item fixed_image">
+          <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
+          <view class="fixed_img_addon">weui2</view>
         </view>
+        <view class="weui-flex__item fixed_image">
+          <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
+          <view class="fixed_img_addon">weui3</view>
+        </view>
+        <view class="weui-flex__item fixed_image" @tap="showtabbar">
+          <image class="fixed_img" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg"></image>
+          <view class="fixed_img_addon">weui4444444444444444</view>
+        </view>
+    </view>
+    <view style='height:10rpx;'></view>
+    <!-- 九宫格推荐 -->
+    <!-- <view class="weui-grids">
+        <block wx:for-items="{{grids}}" wx:key="{{index}}">
+            <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+              <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
+              <view class="weui-grid__label">Grid</view>
+              <view class="weui-grid__label">￥ 27.000<del>￥ 127.000</del></view>
+            </navigator>
+        </block>
+    </view> -->
+    <!-- 双列推荐 -->
+    <view class="weui-flex weui-flex-two">
+      <repeat for="{{grids}}" key="index" index="index" item="item">
+          <navigator url="" class="weui-flex__item" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" mode="aspectFill" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1522634277&di=77b89e240b9ef42872b515b8ad8cabe9&src=http://img5.xiazaizhijia.com/walls/20160708/1440x900_2f172c09d079701.jpg" />
+            <view class="weui-badge" style="position: absolute;">{{grids[index].tag}}</view>
+            <view class="weui-grid__label">{{grids[index].title}}</view>
+            <view class="weui-grid__label shop_price">￥{{grids[index].price}}<del>￥{{grids[index].current_price}}</del></view>
+          </navigator>
+      </repeat>
     </view>
   </view>
 </template>
@@ -204,7 +201,7 @@
 <script>
 import wepy from 'wepy'
 import Panel from '@/components/panel' // alias example
-import LoginMix from '@/mixins/loginTest'
+// import LoginMix from '@/mixins/loginTest'
 
 export default class Index extends wepy.page {
   config = {
@@ -214,9 +211,9 @@ export default class Index extends wepy.page {
     panel: Panel
   }
 
-  mixins = [
-    LoginMix
-  ]
+  // mixins = [
+  //   LoginMix
+  // ]
 
   data = {
     // swiper

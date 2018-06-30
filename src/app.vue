@@ -8,9 +8,9 @@
     config = {
       pages: [
         // 排列第一的会显示
+        'pages/typelist',
         'pages/index',
         'pages/login',
-        'pages/typelist',
         'pages/shop_car',
         'pages/order_detail',
         'pages/person_index',
