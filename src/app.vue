@@ -8,13 +8,12 @@
     config = {
       pages: [
         // 排列第一的会显示
+        'pages/index',
         'pages/typelist',
         'pages/shop_car',
-        'pages/index',
         'pages/order_detail',
         'pages/person_index',
         'pages/shop_detail',
-
         'index/index',
         'message/index'
       ],
@@ -64,18 +63,17 @@
       this.use('requestfix')
     }
 
-    // 小程序生命周期
     /**
-     * @desc 首次打开小程序
+     * @desc 生命周期 首次打开小程序
      */
-    onLaunch () {
-      this.testAsync()
+    onLaunch (options) {
+      // this.testAsync()
       console.log('onLaunch')
     }
     /**
      * @desc 初始化完成或后台进入前台
      */
-    onShow () {
+    onShow (options) {
       console.log('onShow')
     }
     /**
@@ -93,21 +91,8 @@
     /**
      * @desc 404处理
      */
-    onPageNotFound () {
+    onPageNotFound (options) {
       console.log('onPageNotFound')
-    }
-
-    sleep (s) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve('promise resolved')
-        }, s * 1000)
-      })
-    }
-
-    async testAsync () {
-      const data = await this.sleep(3)
-      console.log(data)
     }
 
     getUserInfo(cb) {
