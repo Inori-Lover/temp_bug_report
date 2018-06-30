@@ -47,6 +47,12 @@ module.exports = {
     }
   },
   plugins: {
+    'autoprefixer': {
+      filter: /\.wxss$/,
+      config: {
+        browsers: ['android >= 4.4', 'ios >= 7']
+      }
+    }
   },
   appConfig: {
     noPromiseAPI: ['createSelectorQuery']
@@ -59,6 +65,12 @@ if (prod) {
 
   // 压缩js
   module.exports.plugins = {
+    'autoprefixer': {
+      filter: /\.wxss$/,
+      config: {
+        browsers: ['android >= 4.4', 'ios >= 7']
+      }
+    },
     uglifyjs: {
       filter: /\.js$/,
       config: {
