@@ -14,9 +14,7 @@
         'pages/shop_car',
         'pages/order_detail',
         'pages/person_index',
-        'pages/shop_detail',
-        'index/index',
-        'message/index'
+        'pages/shop_detail'
       ],
       window: {
         backgroundTextStyle: 'light',
@@ -36,11 +34,6 @@
           text: '分类',
           iconPath: 'res/book.png',
           selectedIconPath: 'res/book2.png'
-        }, {
-          pagePath: 'index/index',
-          text: '分享',
-          iconPath: 'res/shopcity.png',
-          selectedIconPath: 'res/shopcity2.png'
         }, {
           pagePath: 'pages/shop_car',
           text: '购物车',
