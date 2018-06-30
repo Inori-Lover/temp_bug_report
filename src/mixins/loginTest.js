@@ -27,7 +27,9 @@ export default class TestMixin extends wepy.mixin {
         }
       })
     } else {
-      // 已经登陆
+      console.log(this.$parent.globalData.userInfo)
+      this.userInfo = this.$parent.globalData.userInfo
+      this.$apply()
     }
     console.groupEnd()
   }
