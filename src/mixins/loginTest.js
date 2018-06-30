@@ -17,14 +17,15 @@ export default class TestMixin extends wepy.mixin {
        */
       if (res.query && res.query.from) {
         query.push(`from=${res.query.from}`)
+      } else {
+        query.push(`from=${this.getCurrentPages()[0].route}`)
       }
-      query.push(`test=true`)
-      // wepy.navigateTo({
-      //   url: `login?${query.join('&')}`,
-      //   complete: (res) => {
-      //     console.log(res)
-      //   }
-      // })
+      wepy.redirectTo({
+        url: `login?${query.join('&')}`,
+        complete: (res) => {
+          console.log(res)
+        }
+      })
     } else {
       // 已经登陆
     }
