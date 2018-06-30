@@ -14,8 +14,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "wepy": {
-    "module-a": false,
-    "./src/components/list": "./src/components/wepy-list.wpy"
   },
   "author": "'inori_lover' <'337938188@qq.com'>",
   "license": "MIT",
