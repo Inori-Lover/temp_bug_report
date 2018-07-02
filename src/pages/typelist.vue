@@ -18,17 +18,20 @@
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
     </view>
 
-    <view class="weui-flex main_container">
+    <view class="weui-flex main_container" style="height: {{navHeight}}px">
       <!-- 左边导航栏 -->
-      <scroll-view class="left_nav" scroll-y scroll-with-animation @scroll="navScrollHandler">
+      <scroll-view class="left_nav" scroll-y @scroll="navScrollHandler" scroll-into-view="nav_item_{{contentTopID}}">
         <repeat for="{{nav}}" index="index" item="item" key="item.id">
-          <view class="nav_item" id="nav_item_{{item.id}}">{{item.name}}</view>
+          <view class="nav_item {{contentTopID === index ? 'active' : ''}}" id="nav_item_{{item.id}}">{{item.name}}</view>
         </repeat>
       </scroll-view>
       <!-- 右边内容栏 -->
-      <scroll-view class="right_content" scroll-y scroll-with-animation @scroll="contentScrollHandler">
+      <scroll-view class="right_content" scroll-y @scroll="contentScrollHandler" scroll-into-view="nav_item_title_{{navItemID}}">
         <repeat for="{{content}}" index="index" item="item" key="item.id">
-          <view class="content_item" id="nav_item_{{item.id}}">{{item.name}} - {{item.content}}</view>
+          <view class="content_item_title" id="nav_item_title_{{item.id}}">{{item.name}}</view>
+          <repeat for="{{item.child}}" index="_index" item="_item" key="_item.id">
+            <view class="content_item" id="nav_item_{{_item.id}}">{{_item.name}} - {{_item.content}}</view>
+          </repeat>
         </repeat>
       </scroll-view>
     </view>
@@ -44,17 +47,44 @@
        * 生成测试填充数据
        */
       this.nav = [...Array(30).keys()].map((item, index) => {
+        index += 1
         return {
           id: index,
           name: `测试${index}`
         }
       })
-      this.content = [...Array(50).keys()].map((item, index) => {
+      this.content = [...Array(30).keys()].map((item, index) => {
+        index += 1
         return {
           id: index,
           name: `测试${index}`,
-          content: `测试内容`
+          content: `测试内容`,
+          child: [
+            {
+              id: 0,
+              name: `测试0`,
+              content: `测试内容-${index}-0`
+            },
+            {
+              id: 1,
+              name: `测试1`,
+              content: `测试内容-${index}-1`
+            }
+          ]
         }
+      })
+    }
+
+    getSystemInfo = function () {
+      return new Promise((resolve, reject) => {
+        wepy.getSystemInfo({
+          success: (res) => {
+            resolve(res)
+          },
+          fail: (err) => {
+            reject(err)
+          }
+        })
       })
     }
 
@@ -65,11 +95,50 @@
     data = {
       order: ['red', 'yellow', 'blue', 'green', 'red'],
       nav: null,
-      content: null
+      content: null,
+      placeHeight: null,
+      navHeight: 0,
+      contentTitleList: null,
+      contentTopID: null,
+      navItemID: null
     }
 
     onLoad () {
       this.paddingData()
+    }
+
+    async onShow () {
+      const systemInfo = await this.getSystemInfo()
+      const topEleQuery = wepy.createSelectorQuery()
+      const contentTitleQuery = wepy.createSelectorQuery()
+
+      this.navHeight = systemInfo.windowHeight
+
+      topEleQuery.select('.weui-search-bar').boundingClientRect()
+      contentTitleQuery.selectAll('.content_item_title').boundingClientRect()
+
+      new Promise((resolve, reject) => {
+        topEleQuery.exec((res) => {
+          Array.from(res).forEach((item) => {
+            this.navHeight -= item.height
+          })
+          this.placeHeight = systemInfo.windowHeight - this.navHeight
+          this.$apply()
+          resolve(res)
+        })
+      }).then(res => {
+        return new Promise((resolve, reject) => {
+          contentTitleQuery.exec((res) => {
+            this.contentTitleList = Array.from(res[0]).map(item => item.top)
+            this.$apply()
+            resolve(res)
+          })
+        })
+      }, err => {
+        console.log(err)
+      })
+
+      this.$apply()
     }
 
     methods = {
@@ -86,9 +155,34 @@
          * evt.detail.scrollTop 滚动距离（顶
          */
         console.log(evt.detail.scrollTop, evt.target.offsetTop)
+        if (!this.contentTitleList || !this.contentTitleList.length) {
+          return
+        }
+        const contentTitleList = Array.from(this.contentTitleList)
+        let notFound = true
+        contentTitleList.forEach((item, index, array) => {
+          if (notFound && evt.detail.scrollTop > item) {
+            this.scrollTopID = index
+            notFound = false
+          }
+        })
+        this.$apply()
       },
       contentScrollHandler (evt) {
-        console.log(evt.detail.scrollTop, evt.target.offsetTop)
+        if (!this.contentTitleList || !this.contentTitleList.length) {
+          return
+        }
+        const contentTitleList = Array.from(this.contentTitleList)
+        let notFound = true
+        contentTitleList.forEach((item, index, array) => {
+          // 上边缘接触作为判断条件
+          if (notFound && evt.detail.scrollTop + this.placeHeight < item) {
+            console.log(item, index, array)
+            this.contentTopID = index
+            notFound = false
+          }
+        })
+        this.$apply()
       }
     }
   }
