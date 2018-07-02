@@ -20,13 +20,13 @@
 
     <view class="weui-flex main_container" style="height: {{navHeight}}px">
       <!-- 左边导航栏 -->
-      <scroll-view class="left_nav" scroll-y @scroll="navScrollHandler" scroll-into-view="nav_item_{{contentTopID}}">
+      <scroll-view class="left_nav" scroll-y @scroll="navScrollHandler" scroll-with-animation scroll-into-view="nav_item_{{contentTopID}}">
         <repeat for="{{nav}}" index="index" item="item" key="item.id">
           <view class="nav_item {{contentTopID === index ? 'active' : ''}}" id="nav_item_{{item.id}}">{{item.name}}</view>
         </repeat>
       </scroll-view>
       <!-- 右边内容栏 -->
-      <scroll-view class="right_content" scroll-y @scroll="contentScrollHandler" scroll-into-view="nav_item_title_{{navItemID}}">
+      <scroll-view class="right_content" scroll-y @scroll="contentScrollHandler" scroll-with-animation scroll-into-view="nav_item_title_{{navItemID}}">
         <repeat for="{{content}}" index="index" item="item" key="item.id">
           <view class="content_item_title" id="nav_item_title_{{item.id}}">{{item.name}}</view>
           <repeat for="{{item.child}}" index="_index" item="_item" key="_item.id">
@@ -40,6 +40,7 @@
 
 <script>
   import wepy from 'wepy'
+  import _debounce from 'lodash/debounce'
 
   export default class TypeList extends wepy.page {
     paddingData = async function () {
@@ -86,6 +87,27 @@
           }
         })
       })
+    }
+
+    _contentScrollHandler = evt => {
+      if (!this.contentTitleList || !this.contentTitleList.length) {
+        return
+      }
+      console.log(+new Date())
+      const contentTitleList = Array.from(this.contentTitleList)
+      let notFound = true
+      console.groupCollapsed(`计算接触`)
+      console.time()
+      contentTitleList.forEach((item, index) => {
+        // 上边缘接触作为判断条件
+        if (notFound && evt.detail.scrollTop + this.placeHeight < item) {
+          this.contentTopID = index - 1
+          notFound = false
+        }
+      })
+      this.$apply()
+      console.timeEnd()
+      console.groupEnd()
     }
 
     config = {
@@ -154,36 +176,24 @@
          * evt.detail.scrollLeft 滚动距离（左
          * evt.detail.scrollTop 滚动距离（顶
          */
-        console.log(evt.detail.scrollTop, evt.target.offsetTop)
-        if (!this.contentTitleList || !this.contentTitleList.length) {
-          return
-        }
-        const contentTitleList = Array.from(this.contentTitleList)
-        let notFound = true
-        contentTitleList.forEach((item, index, array) => {
-          if (notFound && evt.detail.scrollTop > item) {
-            this.scrollTopID = index
-            notFound = false
-          }
-        })
-        this.$apply()
+        console.log(+new Date(), evt.detail.scrollTop, evt.target.offsetTop)
+        // if (!this.contentTitleList || !this.contentTitleList.length) {
+        //   return
+        // }
+        // const contentTitleList = Array.from(this.contentTitleList)
+        // let notFound = true
+        // contentTitleList.forEach((item, index, array) => {
+        //   if (notFound && evt.detail.scrollTop > item) {
+        //     this.scrollTopID = index
+        //     notFound = false
+        //   }
+        // })
+        // this.$apply()
       },
-      contentScrollHandler (evt) {
-        if (!this.contentTitleList || !this.contentTitleList.length) {
-          return
-        }
-        const contentTitleList = Array.from(this.contentTitleList)
-        let notFound = true
-        contentTitleList.forEach((item, index, array) => {
-          // 上边缘接触作为判断条件
-          if (notFound && evt.detail.scrollTop + this.placeHeight < item) {
-            console.log(item, index, array)
-            this.contentTopID = index
-            notFound = false
-          }
-        })
-        this.$apply()
-      }
+
+      contentScrollHandler: _debounce(function (evt) {
+        this._contentScrollHandler(evt)
+      }, 800)
     }
   }
 </script>

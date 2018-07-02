@@ -4,7 +4,6 @@
 
 <script>
 import wepy from 'wepy'
-import _ from 'lodash'
 
 export default class Car extends wepy.page {
   config = {
