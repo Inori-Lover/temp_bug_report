@@ -7,6 +7,7 @@
     "url": "https://gitee.com/Inori-Lover/new_shop"
   },
   "scripts": {
+    "start": "node clean.js && wepy build --watch",
     "dev": "wepy build --watch",
     "build": "node clean.js && cross-env NODE_ENV=production wepy build --no-cache",
     "dev:web": "wepy build --output web",
