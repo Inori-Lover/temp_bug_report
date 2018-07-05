@@ -12,21 +12,23 @@
         </view>
         <label class="weui-search-bar__label" hidden="{{inputShowed}}" @tap="showInput">
           <icon class="weui-icon-search" type="search" size="14"></icon>
-          <view class="weui-search-bar__text">搜索</view>
+          <view class="weui-search-bar__text">搜索{{contentTopID}}</view>
         </label>
       </view>
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
     </view>
-
+  <button class="btn" type="primary" loading="{{false}}" disabled="{{false}}" @tap="onTap">
+    点击
+  </button>
     <view class="weui-flex main_container" style="height: {{navHeight}}px">
       <!-- 左边导航栏 -->
-      <scroll-view class="left_nav" scroll-y @scroll="navScrollHandler" scroll-with-animation scroll-into-view="nav_item_{{contentTopID}}">
+      <scroll-view class="left_nav" scroll-y @scroll="navScrollHandler" scroll-with-animation>
         <repeat for="{{nav}}" index="index" item="item" key="item.id">
-          <view class="nav_item {{contentTopID === index ? 'active' : ''}}" id="nav_item_{{item.id}}">{{item.name}}</view>
+          <view class="nav_item {{contentTopID === index ? 'active' : ''}}" id="nav_item_{{item.id}}">{{item.name}}{{contentTopID}}</view>
         </repeat>
       </scroll-view>
       <!-- 右边内容栏 -->
-      <scroll-view class="right_content" scroll-y @scroll="contentScrollHandler" scroll-with-animation scroll-into-view="nav_item_title_{{navItemID}}">
+      <scroll-view class="right_content" scroll-y @scroll="contentScrollHandler" scroll-with-animation>
         <repeat for="{{content}}" index="index" item="item" key="item.id">
           <view class="content_item_title" id="nav_item_title_{{item.id}}">{{item.name}}</view>
           <repeat for="{{item.child}}" index="_index" item="_item" key="_item.id">
@@ -90,24 +92,9 @@
     }
 
     _contentScrollHandler = evt => {
-      if (!this.contentTitleList || !this.contentTitleList.length) {
-        return
-      }
-      console.log(+new Date())
-      const contentTitleList = Array.from(this.contentTitleList)
-      let notFound = true
-      console.groupCollapsed(`计算接触`)
-      console.time()
-      contentTitleList.forEach((item, index) => {
-        // 上边缘接触作为判断条件
-        if (notFound && evt.detail.scrollTop + this.placeHeight < item) {
-          this.contentTopID = index - 1
-          notFound = false
-        }
-      })
+      var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      this.contentTopID = arr[Math.round(Math.random() * 10)]
       this.$apply()
-      console.timeEnd()
-      console.groupEnd()
     }
 
     config = {
@@ -119,7 +106,7 @@
       nav: null,
       content: null,
       placeHeight: null,
-      navHeight: 0,
+      navHeight: 300,
       contentTitleList: null,
       contentTopID: null,
       navItemID: null
@@ -130,37 +117,37 @@
     }
 
     async onShow () {
-      const systemInfo = await this.getSystemInfo()
-      const topEleQuery = wepy.createSelectorQuery()
-      const contentTitleQuery = wepy.createSelectorQuery()
+      // const systemInfo = await this.getSystemInfo()
+      // const topEleQuery = wepy.createSelectorQuery()
+      // const contentTitleQuery = wepy.createSelectorQuery()
 
-      this.navHeight = systemInfo.windowHeight
+      // this.navHeight = systemInfo.windowHeight
 
-      topEleQuery.select('.weui-search-bar').boundingClientRect()
-      contentTitleQuery.selectAll('.content_item_title').boundingClientRect()
+      // topEleQuery.select('.weui-search-bar').boundingClientRect()
+      // contentTitleQuery.selectAll('.content_item_title').boundingClientRect()
 
-      new Promise((resolve, reject) => {
-        topEleQuery.exec((res) => {
-          Array.from(res).forEach((item) => {
-            this.navHeight -= item.height
-          })
-          this.placeHeight = systemInfo.windowHeight - this.navHeight
-          this.$apply()
-          resolve(res)
-        })
-      }).then(res => {
-        return new Promise((resolve, reject) => {
-          contentTitleQuery.exec((res) => {
-            this.contentTitleList = Array.from(res[0]).map(item => item.top)
-            this.$apply()
-            resolve(res)
-          })
-        })
-      }, err => {
-        console.log(err)
-      })
+      // new Promise((resolve, reject) => {
+      //   topEleQuery.exec((res) => {
+      //     Array.from(res).forEach((item) => {
+      //       this.navHeight -= item.height
+      //     })
+      //     this.placeHeight = systemInfo.windowHeight - this.navHeight
+      //     this.$apply()
+      //     resolve(res)
+      //   })
+      // }).then(res => {
+      //   return new Promise((resolve, reject) => {
+      //     contentTitleQuery.exec((res) => {
+      //       this.contentTitleList = Array.from(res[0]).map(item => item.top)
+      //       this.$apply()
+      //       resolve(res)
+      //     })
+      //   })
+      // }, err => {
+      //   console.log(err)
+      // })
 
-      this.$apply()
+      // this.$apply()
     }
 
     methods = {
@@ -191,9 +178,13 @@
         // this.$apply()
       },
 
+      onTap: _debounce(function (evt) {
+        this._contentScrollHandler(evt)
+      }, 600),
+
       contentScrollHandler: _debounce(function (evt) {
         this._contentScrollHandler(evt)
-      }, 800)
+      }, 600)
     }
   }
 </script>
