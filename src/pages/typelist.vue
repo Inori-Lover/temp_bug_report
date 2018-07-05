@@ -17,7 +17,7 @@
       </view>
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
     </view>
-  <button class="btn" type="primary" loading="{{false}}" disabled="{{false}}" @tap="onTap">
+  <button class="btn" type="primary" loading="{{false}}" disabled="{{false}}" @tap="contentScrollHandler">
     点击
   </button>
     <view class="weui-flex main_container" style="height: {{navHeight}}px">
@@ -92,6 +92,7 @@
     }
 
     _contentScrollHandler = evt => {
+      console.log(evt.target)
       var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
       this.contentTopID = arr[Math.round(Math.random() * 10)]
       this.$apply()
@@ -177,10 +178,6 @@
         // })
         // this.$apply()
       },
-
-      onTap: _debounce(function (evt) {
-        this._contentScrollHandler(evt)
-      }, 600),
 
       contentScrollHandler: _debounce(function (evt) {
         this._contentScrollHandler(evt)
