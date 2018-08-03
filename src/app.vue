@@ -8,44 +8,47 @@
     config = {
       pages: [
         // 排列第一的会显示
-        'pages/typelist',
-        'pages/index',
-        'pages/login',
-        'pages/shop_car',
-        'pages/order_detail',
-        'pages/person_index',
-        'pages/shop_detail'
+        'pages/pageA',
+        'pages/pageBFix',
+        'pages/pageB'
+        // 'pages/typelist',
+        // 'pages/index',
+        // 'pages/login',
+        // 'pages/shop_car',
+        // 'pages/order_detail',
+        // 'pages/person_index',
+        // 'pages/shop_detail'
       ],
       window: {
         backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#fff',
         navigationBarTitleText: 'WeChat',
         navigationBarTextStyle: 'black'
-      },
-      tabBar: {
-        // list长度为2~5
-        list: [{
-          pagePath: 'pages/index',
-          text: '首页',
-          iconPath: 'res/home.png',
-          selectedIconPath: 'res/home2.png'
-        }, {
-          pagePath: 'pages/typelist',
-          text: '分类',
-          iconPath: 'res/book.png',
-          selectedIconPath: 'res/book2.png'
-        }, {
-          pagePath: 'pages/shop_car',
-          text: '购物车',
-          iconPath: 'res/shopcar.png',
-          selectedIconPath: 'res/shopcar2.png'
-        }, {
-          pagePath: 'pages/person_index',
-          text: '会员中心',
-          iconPath: 'res/person.png',
-          selectedIconPath: 'res/person2.png'
-        }]
       }
+      // tabBar: {
+      //   // list长度为2~5
+      //   list: [{
+      //     pagePath: 'pages/index',
+      //     text: '首页',
+      //     iconPath: 'res/home.png',
+      //     selectedIconPath: 'res/home2.png'
+      //   }, {
+      //     pagePath: 'pages/typelist',
+      //     text: '分类',
+      //     iconPath: 'res/book.png',
+      //     selectedIconPath: 'res/book2.png'
+      //   }, {
+      //     pagePath: 'pages/shop_car',
+      //     text: '购物车',
+      //     iconPath: 'res/shopcar.png',
+      //     selectedIconPath: 'res/shopcar2.png'
+      //   }, {
+      //     pagePath: 'pages/person_index',
+      //     text: '会员中心',
+      //     iconPath: 'res/person.png',
+      //     selectedIconPath: 'res/person2.png'
+      //   }]
+      // }
     }
 
     globalData = {
