@@ -1,0 +1,8 @@
+
+    <view>
+      <button bindtap="PageB1"> PageB1 </button>
+      <button bindtap="PageB2"> PageB2 </button>
+      <text>--------------------------</text>
+      <button bindtap="PageBFix1"> PageBFix1 </button>
+      <button bindtap="PageBFix2"> PageBFix2 </button>
+    </view>
