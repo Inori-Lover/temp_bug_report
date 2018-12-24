@@ -1,0 +1,16 @@
+{
+	"miniprogramRoot": "dist/",
+	"projectname": "tarov1.1",
+	"description": "测试性书写",
+	"appid": "",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"uglifyFileName": true
+	},
+	"compileType": "miniprogram",
+	"condition": {}
+}
